@@ -1,15 +1,15 @@
 // FSK USB Gateway firmware
 // Updated on 4/24/2018
 
-#include <RFM69.h>         //get it here: http://github.com/lowpowerlab/rfm69
-//#include <SPIFlash.h>      //get it here: http://github.com/lowpowerlab/spiflash
-#include <SPI.h>           //comes with Arduino IDE (www.arduino.cc)
+#include <RFM69.h>         //http://github.com/lowpowerlab/rfm69
+//#include <SPIFlash.h>      //http://github.com/lowpowerlab/spiflash
+#include <SPI.h>           
 
 #define ENCRYPTKEY    "Tt-Mh=SQ#dn#JY3_" //has to be same 16 characters/bytes on all nodes, not more not less!
 #define NODEID        1
 //#define GATEWAYID     1
 #define NETWORKID     101
-#define FREQUENCY     RF69_915MHZ //Match this with the version of your Moteino! (others: RF69_433MHZ, RF69_868MHZ)
+#define FREQUENCY     RF69_915MHZ //(others: RF69_433MHZ, RF69_868MHZ)
 #define IS_RFM69HW    //uncomment only for RFM69HW! Leave out if you have RFM69W!
 #define LED             9
 //#define FLASH_CS        8
