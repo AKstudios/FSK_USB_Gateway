@@ -1,5 +1,5 @@
 // FSK USB Gateway firmware
-// Updated on 4/24/2018
+// Updated on 10/29/2018
 
 #include <RFM69.h>         //http://github.com/lowpowerlab/rfm69
 //#include <SPIFlash.h>      //http://github.com/lowpowerlab/spiflash
@@ -7,12 +7,10 @@
 
 #define ENCRYPTKEY    "Tt-Mh=SQ#dn#JY3_" //has to be same 16 characters/bytes on all nodes, not more not less!
 #define NODEID        1
-//#define GATEWAYID     1
-#define NETWORKID     101
+#define NETWORKID     1
 #define FREQUENCY     RF69_915MHZ //(others: RF69_433MHZ, RF69_868MHZ)
 #define IS_RFM69HW    //uncomment only for RFM69HW! Leave out if you have RFM69W!
 #define LED             9
-//#define FLASH_CS        8
 #define SERIAL_BAUD 115200
 #define SERIAL_EN     //comment out if you don't want any serial verbose output
 #define ACK_TIME       30  // # of ms to wait for an ack
