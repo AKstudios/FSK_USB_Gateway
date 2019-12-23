@@ -1,5 +1,5 @@
 // FSK USB Gateway firmware
-// Updated on 11/2/2018
+// Updated on 12/22/2019
 
 #include <RFM69.h>         //http://github.com/lowpowerlab/rfm69
 //#include <SPIFlash.h>      //http://github.com/lowpowerlab/spiflash
@@ -17,7 +17,9 @@
 RFM69 radio;
 //SPIFlash flash(FLASH_CS, 0xEF30); //EF40 for 16mbit windbond chip
 char data[100];
+char dataPacket[150];
 char _rssi[5];
+char _i[4];
 
 void setup()
 {
@@ -37,6 +39,7 @@ void loop()
   if (radio.receiveDone())
   {
     int rssi = radio.RSSI;
+    int nodeID = radio.SENDERID;
 
     if (radio.DATALEN > 0)
     {
@@ -46,20 +49,27 @@ void loop()
     
     if (radio.ACKRequested())
     {
-      //byte theNodeID = radio.SENDERID;
       radio.sendACK();
 
+      dtostrf(nodeID, 1, 0, _i);
       dtostrf(rssi, 3, 0, _rssi);
-      strcat(data, ",r:");
-      strcat(data, _rssi);
+
+      dataPacket[0] = 0;  // first value of dataPacket should be a 0
+      strcat(dataPacket, "i:");
+      strcat(dataPacket, _i);  // append node ID
+      strcat(dataPacket, ",");
+      strcat(dataPacket, data);  // append actual data
+      strcat(dataPacket, ",r:");
+      strcat(dataPacket, _rssi); // append RSSI
       
-      Serial.println(data);
+      Serial.println(dataPacket);
       delay(1);
-      
-      Blink(LED,5);
-      
-      memset(data, 0, sizeof data);
+
+      memset(data, 0, sizeof data);   // clear array
+      memset(dataPacket, 0, sizeof dataPacket);   // clear array
       memset(_rssi, 0, sizeof _rssi);
+
+      Blink(LED,5);
     }
   }
 }
